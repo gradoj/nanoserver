@@ -1,4 +1,5 @@
 import os
+import config
 if os.__name__ == 'os':
     from json import loads, dumps
 else:
@@ -22,8 +23,7 @@ def getDevAddr(deveui):
         devaddr = int(joininfo[str(deveui)]['devaddr'])
     except KeyError:
         # deveui not found so generate a new devaddr and add to joinInfo
-        baseaddr = 0x60000000
-        for devaddr in range(0x60000000, 0x60000100):
+        for devaddr in range(config.DEV_EUI, config.DEV_EUI+0x100):
             if devaddr not in joininfo.keys():
                 # found a new useable devaddr
                 joininfo[str(deveui)] = {'devaddr':devaddr}
@@ -55,7 +55,7 @@ class Device():
         except KeyError:
             # add a new device
             devinfo[str(devaddr)] = {'deveui':getDevEui(devaddr),
-                                        'appkey':0xEnterAppKeyHere,
+                                        'appkey':config.APP_KEY,
                                         'appeui':0x0,
                                         'netid':0,
                                         'appskey':0,

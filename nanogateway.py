@@ -112,7 +112,7 @@ class NanoGateway:
         self.uplink_alarm = None
 
         self.wlan = None
-        self.sock = None
+        #self.sock = None
         self.udp_stop = False
         self.udp_lock = _thread.allocate_lock()
 
@@ -140,11 +140,11 @@ class NanoGateway:
         self._log("RTC NTP sync complete")
 
         # get the server IP and create an UDP socket
-        self.server_ip = usocket.getaddrinfo(self.server, self.port)[0][-1]
-        self._log('Opening UDP socket to {} ({}) port {}...', self.server, self.server_ip[0], self.server_ip[1])
-        self.sock = usocket.socket(usocket.AF_INET, usocket.SOCK_DGRAM, usocket.IPPROTO_UDP)
-        self.sock.setsockopt(usocket.SOL_SOCKET, usocket.SO_REUSEADDR, 1)
-        self.sock.setblocking(False)
+        #self.server_ip = usocket.getaddrinfo(self.server, self.port)[0][-1]
+        #self._log('Opening UDP socket to {} ({}) port {}...', self.server, self.server_ip[0], self.server_ip[1])
+        #self.sock = usocket.socket(usocket.AF_INET, usocket.SOCK_DGRAM, usocket.IPPROTO_UDP)
+        #self.sock.setsockopt(usocket.SOL_SOCKET, usocket.SO_REUSEADDR, 1)
+        #self.sock.setblocking(False)
 
         # push the first time immediatelly
         self._push_data(self._make_stat_packet())
@@ -386,7 +386,7 @@ class NanoGateway:
             utime.time(),
             self._freq_to_float(frequency),
             datarate,
-            data
+            ubinascii.hexlify(data)
         )
 
     def _udp_thread(self):
@@ -460,7 +460,7 @@ class NanoGateway:
             utime.sleep_ms(UDP_THREAD_CYCLE_MS)
 
         # we are to close the socket
-        self.sock.close()
+        #self.sock.close()
         self.udp_stop = False
         self._log('UDP thread stopped')
 

@@ -25,8 +25,17 @@ PORT = 1700
 NTP = "pool.ntp.org"
 NTP_PERIOD_S = 3600
 
-#WIFI_SSID = ''
-#WIFI_PASS = ''
+WIFI_SSID = ''
+WIFI_PASS = ''
+
+SERVER = ''
+
+# One app key used for all devices right now
+APP_KEY = 
+DEV_EUI = 0x60000000 # start of device eui range
+APP_EUI = 0
+NET_ID = 0
+
 
 # for EU868
 #LORA_FREQUENCY = 868100000
